@@ -7,6 +7,7 @@
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <omp.h>
 //#include <filesystem>
 using namespace std;
 #define REP(i, n) for (int i = 0; i < int(n); i++)

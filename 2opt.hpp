@@ -126,7 +126,7 @@ void LS_2_Opt_N(vector<int> tour, vector<int> position)
    while(!locallyOptimal)
    {
       locallyOptimal = true;
-      for(int baseindex = 0; baseindex <= N-1; baseindex++)
+      for(int baseindex = 1; baseindex < N-1; baseindex++)
       {
 	for(int direction= -1; direction <= 1; direction +=2)
 	{
@@ -143,8 +143,8 @@ void LS_2_Opt_N(vector<int> tour, vector<int> position)
 		X2 = tour[i];
 		X1 = tour[ (i+1)%N];
 	   }
-		if(!(i%1))
-		cout << "i: "<< i<<endl;
+		if(!(baseindex%1000))
+		cout << "i: "<< baseindex<<endl;
 		for(int neighbor_number = 0; neighbor_number < NN; neighbor_number++)
 		{
 		   int j, Y2;
@@ -162,10 +162,10 @@ void LS_2_Opt_N(vector<int> tour, vector<int> position)
 		   }
 		   if( X2 == Y1 || Y2 == X1) continue;
 
-		if(!(j%1000))
-		{
-		   cout <<"i: "<<i<<" j: "<< j<<endl;
-		}
+//		if(!(j%1000))
+//		{
+//		   cout <<"i: "<<i<<" j: "<< j<<endl;
+//		}
 		   if( Gain_From_2_Opt(X1, X2, Y1, Y2, tour, position) > 0)
 		   {
 			Make_2_Opt_Move(tour, position,  i, j);

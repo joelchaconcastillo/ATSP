@@ -35,7 +35,7 @@ void Kneares(int k, int index, vector<int> &nindex)
 	while(cont < k)	
 	{
 	   fscanf(file, "%lf %d\n", &distance, &indexc);
-	   nindex.push_back(indexc);
+	   nindex[cont] = indexc;//.push_back(indexc);
 	   cont++;
 	}
         fclose(file);
@@ -48,13 +48,17 @@ void readInstance(){
     char trash[100];
     fscanf(file, " %s\n", trash);
     cities.resize(NCITIES);
-    Nearest.resize(NCITIES);
-    while(N--){
+    Nearest.resize(NCITIES, vector<int>(20));
+//    while(N--){
+    
+// #pragma omp parallel for
+    for(int i= 0;i < NCITIES; i++)
+    {
         fscanf(file, "%d,%lf,%lf\n", &id, &x, &y);
         cities[id].id = id;
         cities[id].x = x;
         cities[id].y = y;
-	Kneares(10, id, Nearest[id]);
+	Kneares(20, id, Nearest[id]);
 	if( !(N%1000))
 	cout << N <<endl;
 	if( isPrime[id]) 
