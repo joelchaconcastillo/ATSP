@@ -33,17 +33,24 @@ using namespace std;
 #include "2opt.hpp"
 void readParams(int *argc, char ***argv)
 {
-    strcpy(filename_instance, (*argv)[1]);
-    strcpy(filename_oldSolution, (*argv)[2]);
-    strcpy(filename_newSolution, (*argv)[3]);
+    strcpy(filename_instance, "cities.csv");
+    //strcpy(filename_instance, (*argv)[1]);
+    strcpy(filename_oldSolution, "Parallel.out_kaggle");
+    //strcpy(filename_oldSolution, "sample_submission.csv");
+    //strcpy(filename_oldSolution, (*argv)[2]);
+    strcpy(filename_newSolution, "Improve_Parallel");
+    //strcpy(filename_newSolution, (*argv)[3]);
 }
 int main(int argc, char **argv){
   ///////Prepare data and read information
     sieve(400000);// printf("End Sieve\n");
+    cout << "reading data...."<<endl;
     readParams(&argc, &argv);
     readSolution();
     readInstance();
-    f2opt(path, indexnPath); 
+    cout << "done!...."<<endl;
+	
+    LS_2_Opt_N(path, indexnPath); 
     saveNewSolution();
     printf("Score of old path: %f\n",evaluate(path));
     printf("Score of new path: %f\n",evaluate(nPath));

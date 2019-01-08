@@ -10,7 +10,8 @@ char filename_newSolution[100];
 char filename_oldSolution[100];
 char filename_instance[100];
 vector<city> cities;
-vector<int> path, path_segment, indexnPath;
+vector< vector< int > > Nearest;
+vector<int> path, path_segment, indexnPath, nPath;
 vector<int> primeIds;
 priority_queue<pair<double, int> > prime_sorted;
 bitset<MAX> used;
@@ -26,7 +27,7 @@ long long sieve_size;
 void Kneares(int k, int index, vector<int> &nindex)
 {
 	char filecity[1000];
-	sprintf(filecity,"50Nearest/%d.txt",index);
+	sprintf(filecity,"/tmp/50Nearest/%d.txt",index);
         FILE * file = fopen(filecity, "r");
 	double distance;
 	int indexc;
@@ -34,7 +35,8 @@ void Kneares(int k, int index, vector<int> &nindex)
 	while(cont < k)	
 	{
 	   fscanf(file, "%lf %d\n", &distance, &indexc);
-		nindex.push_back(indexnPath[indexc]);
+	   nindex.push_back(indexc);
+	   cont++;
 	}
         fclose(file);
 }
@@ -46,11 +48,15 @@ void readInstance(){
     char trash[100];
     fscanf(file, " %s\n", trash);
     cities.resize(NCITIES);
+    Nearest.resize(NCITIES);
     while(N--){
         fscanf(file, "%d,%lf,%lf\n", &id, &x, &y);
         cities[id].id = id;
         cities[id].x = x;
         cities[id].y = y;
+	Kneares(10, id, Nearest[id]);
+	if( !(N%1000))
+	cout << N <<endl;
 	if( isPrime[id]) 
 	{
 		primeIds.pb(id);
