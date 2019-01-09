@@ -59,8 +59,8 @@ void readInstance(){
         cities[id].x = x;
         cities[id].y = y;
 	Kneares(20, id, Nearest[id]);
-	if( !(N%1000))
-	cout << N <<endl;
+	if( !(i%1000))
+	cout << i <<endl;
 	if( isPrime[id]) 
 	{
 		primeIds.pb(id);
